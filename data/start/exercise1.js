@@ -13,10 +13,17 @@
 // TODO 1c: on a new line under the variables, change duration: duration = "2n";  Play. Hear the difference?
 // TODO 1d: try the same with note: note = "D4";  Read the error in the console. Then delete that line.
 
+const note = "A3";
+const note2 = "E3";
+const note3 = "G4";
+let duration = "8n";
+duration = "2n";
+
+
 function exercise1(start) {
-  synth.triggerAttackRelease("C4", "8n", start);
-  synth.triggerAttackRelease("E4", "8n", start + 0.5);
-  synth.triggerAttackRelease("G4", "8n", start + 1);
+  synth.triggerAttackRelease(note, duration, start);
+  synth.triggerAttackRelease("D4", "8n", start + 0.5);
+  synth.triggerAttackRelease("F4", "8n", start + 1);
 }
 
 // ---------- You don't need to change anything below this line ----------

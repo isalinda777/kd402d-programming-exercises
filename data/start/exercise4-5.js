@@ -3,18 +3,23 @@
 
 function playNote(name, length, time) {
   // TODO 5: log what is playing, before the note plays:
-  //         console.log("Playing " + name + " for " + length);
+  console.log("Playing " + name + " for " + length);
   synth.triggerAttackRelease(name, length, time);
 }
 
 // TODO 4a: store the three notes and one length in variables, here, above the function.
 // TODO 4b: use those variables in the calls below instead of the values typed in.
 // TODO 4c: change the length variable once. Do all three notes change?
+const noteOne = "G3";
+const noteTwo = "A2";
+const noteThree = "F3";
+let lenght = "16n";
 
 function exercise4(start) {
-  playNote("C4", "8n", start);
-  playNote("E4", "8n", start + beat);
-  playNote("G4", "8n", start + beat * 2);
+  playNote(noteTwo, lenght, start);
+  playNote(noteOne, lenght, start + beat);
+  playNote(noteThree, lenght, start + beat * 2);
+  playNote("A5", "14n", start + beat * 3);
 }
 
 // ---------- You don't need to change anything below this line ----------
