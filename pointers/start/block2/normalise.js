@@ -71,6 +71,9 @@ function stopNote(event) {
 // ---------- Pointer ----------
 function pointerMove(event) {
   // TODO 5a, 5c, 5e and 6a go here
+  let normX = event.clientX / window.innerWidth;
+  console.log(normX);
+  synth.detune.value = 1200 - normX * -2400;
 }
 
 // ---------- Setup ----------
