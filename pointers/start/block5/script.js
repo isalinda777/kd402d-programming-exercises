@@ -53,6 +53,9 @@ function pointerEnter(event) {
   synth.triggerAttack(note);
   shape.setColour(50, 100, 60);
   // TODO 12c goes here
+  lastX = event.clientX / window.innerWidth;
+  lastY = event.clientY / window.innerHeight;
+  lastTime = Date.now();
 }
 
 function pointerLeave(event) {
@@ -63,8 +66,47 @@ function pointerLeave(event) {
 
 function pointerMove(event) {
   // TODO 12a, 13a go here
+  if (!inside) {
+    return;
+  }
+  let normX = event.clientX / window.innerWidth;
+  let normY = event.clientY / window.innerHeight;
+  let now = Date.now(); //To record speed (!)
+  let distance = Math.hypot(normX - lastX, normY - lastY); // in screens
+  let seconds = (now - lastTime) / 1000;
+  if (seconds === 0) {
+    return;
+  }
+  let speed = distance / seconds; // screens per second
+  lastX = normX;
+  lastY = normY;
+  lastTime = now;
+  speeds.push(speed);
+  console.log(speed);
+  setTimeout(forgetOldest, 500);
 }
 
+function forgetOldest() {
+  speeds.shift();
+  useAverage();
+}
+function useAverage() {
+  let total = 0;
+  for (let i = 0; i < speeds.length; i++) {
+    total = total + speeds[i];
+  }
+  let average = 0;
+  if (speeds.length > 0) {
+    average = total / speeds.length;
+  }
+  synth.detune.value = average * 1200;
+  console.log(average);
+  let volume = -30 + average * 30; // -30 is nearly silent, 0 is full
+  if (volume > 0) {
+    volume = 0;
+  }
+  synth.volume.value = volume;
+}
 // ---------- Setup ----------
 function setup() {
   shape.setSize(200);
