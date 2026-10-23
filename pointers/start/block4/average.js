@@ -78,8 +78,32 @@ function pointerMove(event) {
 
   synth.detune.value = speed * 300;
   // TODO 9a, 9b and 9c go here
+  speeds.push(speed);
+
+  //if (speeds.length > 10) {
+  //speeds.shift(); // take out the oldest, at the front
+
+  setTimeout(forgetOldest, 500);
+  useAverage();
 }
 
+function forgetOldest() {
+  speeds.shift();
+  useAverage();
+}
+
+function useAverage() {
+  let total = 0;
+  for (let i = 0; i < speeds.length; i++) {
+    total = total + speeds[i];
+  }
+  let average = 0;
+  if (speeds.length > 0) {
+    average = total / speeds.length;
+  }
+  synth.detune.value = average * 1200;
+  console.log(average);
+}
 // ---------- Setup ----------
 window.addEventListener("keydown", keyDown);
 window.addEventListener("pointermove", pointerMove);
