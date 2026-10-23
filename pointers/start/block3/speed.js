@@ -60,6 +60,18 @@ function pointerMove(event) {
   let normX = event.clientX / window.innerWidth;
   let normY = event.clientY / window.innerHeight;
   // TODO 7a and 8a go here
+  let now = Date.now(); //To record speed (!)
+  let distance = Math.hypot(normX - lastX, normY - lastY); // in screens
+  let seconds = (now - lastTime) / 1000;
+  let speed = distance / seconds; // screens per second
+  lastX = normX;
+  lastY = normY;
+  lastTime = now;
+  console.log(speed);
+  if (seconds === 0) {
+    return;
+  }
+  synth.detune.value = speed * 1200;
 }
 
 // ---------- Setup ----------
