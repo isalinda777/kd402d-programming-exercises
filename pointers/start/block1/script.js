@@ -8,7 +8,7 @@ import { createShape } from "./shape.js";
 
 // ---------- Settings ----------
 const note = "C4"; // the note the shape plays
-
+const note2 = "A4";
 // ---------- State ----------
 const shape = createShape(); // one shape, made by shape.js
 
@@ -50,12 +50,26 @@ function startSound(event) {
   Tone.start(); // browsers only allow sound after a click or a key press
 }
 
+function pointerEnter(event) {
+  synth.triggerAttack(note, "8n");
+}
+
+function pointerLeave(event) {
+  synth.triggerRelease();
+}
 // ---------- Setup ----------
 function setup() {
   // TODO 1a goes here
-
+  shape.setSize(150);
+  shape.setColour(333, 50, 80); // hue 0 to 360, saturation, lightness
+  shape.setPosition(0.5, 0.5);
   window.addEventListener("pointerdown", startSound);
   // TODO 2a, 3a and 4a: listen on shape.element here
+  //shape.element.addEventListener("pointerenter", pointerEnter);
+  //shape.element.addEventListener("pointerleave", pointerLeave);
+  shape.element.addEventListener("pointerdown", pointerEnter);
+  shape.element.addEventListener("pointerup", pointerLeave);
+  shape.element.addEventListener("pointerleave", pointerLeave);
 }
 
 setup();
